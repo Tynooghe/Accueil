@@ -1,30 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HAPPY BIRTHDAY</title>
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
+<html>
+  <head>
+    <title>Programmation Web 1: JavaScript</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="css/style1.css">
+    <link rel="stylesheet" type="text/css" href="css/minor-style.css">
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse
 
-    <div>
-        <img src="/images/delicieux-gateau-anniversaire-au-chocolat-bougies_632498-24980.avif" alt="">
-        <p>HAPPY BIRTHDAY LOUISA</p>
-        <img src="/images/téléchargement.jpg" alt="">
-    </div>
+#  Programmation Web: JavaScript
 
-    <button onclick="playMusic()">
-        <img src="/images/download.png" alt="">
-    </button>
-    <audio id="music" src="/audio/musique.mp3"></audio>
+[Johan Koitka](mailto:johan.koitka@univ-artois.fr)
 
-    <script>
-    function playMusic() {
-        const music = document.getElementById("music");
-        music.play();
-    }
+
+Licence Informatique
+---
+
+## Points abordés
+
+### 1. [Le cœur du langage](index1.html#2)
+### 2. [Côté client](index2.html#2)
+### 3. [Concepts avancés](index3.html#2)
+### 4. [Canvas et animation](index4.html#2)
+    </textarea>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/remark/0.14.0/remark.min.js"></script>
+        <script>
+        window.onload = function () {
+            // Remark.js
+            var slideshow = remark.create();
+            /* $('#source').load('pres.md', function() {
+                var slideshow = remark.create();
+            }); */s
+        }
     </script>
-    
-</body>
+  </body>
 </html>
