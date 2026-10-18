@@ -1,0 +1,210 @@
+@font-face {
+    font-family: "monster";
+    src: url(../font/Monster-AG.ttf);
+}
+
+html {
+    background-color: lightblue;
+    height: 100dvh;
+
+    font-family: "monster";
+}
+
+body {
+    background-color: rgba(0, 0, 255, 0.171);
+    text-align: center;
+
+    box-sizing: border-box;
+    width: 80%;
+    min-height: 90dvh;
+    margin: 5dvh auto;
+    padding: 40px;
+    border: solid 2px;
+
+    position: relative;
+    isolation: isolate;
+}
+
+body > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 100px;
+    max-width: 60%;
+    max-height: 60%;
+    opacity: 0.6;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Exception : l'image du cas est un enfant direct de body, mais n'est pas le logo */
+body > img.cas-image {
+    position: static;
+    transform: none;
+    opacity: 1;
+    z-index: auto;
+    pointer-events: auto;
+    max-height: none;
+}
+
+h1 {
+    font-size: 25px;
+}
+
+.audio {
+    display: grid;
+    grid-template-columns: 200px auto;
+    justify-content: space-between;
+    align-items: center;
+    gap: 33px 20px;
+}
+
+.audio span {
+    text-align: left;
+}
+
+.audio a {
+    display: block;
+    width: 200px;
+    cursor: pointer;
+}
+
+.audio a img {
+    width: 100%;
+    height: auto;
+    display: block;
+    box-sizing: border-box;
+
+    border: 3px solid #1a1a2e;
+    border-radius: 6px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.audio a:hover img {
+    transform: scale(1.04);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45);
+}
+
+.audio a:active img {
+    transform: scale(0.97);
+}
+
+.close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    display: block;
+    width: 36px;
+    line-height: 0;
+}
+
+.close img {
+    width: 100%;
+    height: auto;
+    display: block;
+
+    transition: transform 0.15s;
+}
+
+.close:hover img {
+    transform: scale(1.15);
+}
+
+.close:active img {
+    transform: scale(0.95);
+}
+
+/* ---------- Page type : image audio + play + pistes ---------- */
+
+.lecteur {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    margin-bottom: 30px;       /* espace entre le lecteur et les pistes (avant : 60px) */
+}
+
+.lecteur-image {
+    width: 150px;
+    height: auto;
+    display: block;
+}
+
+.play {
+    padding: 0;
+    width: 50px;
+
+    border: 0;
+    background: none;
+    cursor: pointer;
+    line-height: 0;
+
+    transition: transform 0.15s;
+}
+
+.play img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.play:hover {
+    transform: scale(1.1);
+}
+
+.play:active {
+    transform: scale(0.95);
+}
+
+.pistes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.piste {
+    padding: 4px 8px;
+
+    border: 0;
+    background: none;
+    font-family: inherit;
+    font-size: 20px;
+    line-height: 1.4;
+    color: #1a1a2e;
+    cursor: pointer;
+
+    transition: color 0.15s, transform 0.15s;
+}
+
+.piste:hover {
+    color: white;
+    transform: scale(1.05);
+}
+
+.piste.active {
+    text-decoration: underline;
+}
+
+/* ---------- Image du cas, en bas ---------- */
+
+.cas-image {
+    display: block;
+    width: 200px;
+    height: auto;
+    margin: 60px auto 0;
+
+    border: 3px solid #1a1a2e;
+    border-radius: 6px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
