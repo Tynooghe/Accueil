@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +14,81 @@
     <h1>../Central/Dossier/CAS:042</h1>
 
     <div class="audio">
-        <a href="./arrogant.html"><img src="./images/arrogant.png" alt="L'Arrogant"></a>
+        <a href="./arrogant.html" data-id="arrogant" data-code="3141" data-nom="L'Arrogant"><img src="./images/arrogant.png" alt="L'Arrogant"></a>
         <span>L'Arrogant : ID 98765-X-Z</span>
-        <a href="./concierge.html"><img src="./images/concierge.png" alt="Le Concierge"></a>
+        <a href="./concierge.html" data-id="concierge" data-code="0667" data-nom="Le Concierge"><img src="./images/concierge.png" alt="Le Concierge"></a>
         <span>Le Concierge : ID 10984-C-G</span>
-        <a href="./gaffeur.html"><img src="./images/gaffeur.png" alt="Le Gaffeur"></a>
+        <a href="./gaffeur.html" data-id="gaffeur" data-code="1312" data-nom="Le Gaffeur"><img src="./images/gaffeur.png" alt="Le Gaffeur"></a>
         <span>Gaffeur : ID 54123-B-L</span>
-        <a href="#"><img src="./images/artiste.png" alt="L'Artiste"></a>
+        <a href="./artiste.html" data-id="artiste" data-code="2502" data-nom="L'Artiste"><img src="./images/artiste.png" alt="L'Artiste"></a>
         <span>L'Artiste : ID 77201-A-P</span>
     </div>
+
+    <dialog class="code-modal" id="code-modal">
+        <form class="code" id="code-form" autocomplete="off">
+            <label for="code-input" id="code-titre">Code d'accès</label>
+            <input id="code-input" type="text" inputmode="numeric" maxlength="4" placeholder="----" aria-describedby="code-erreur">
+            <p class="code-erreur" id="code-erreur" role="alert"></p>
+            <div class="code-boutons">
+                <button type="submit">Valider</button>
+                <button type="button" id="code-annuler">Annuler</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script>
+        const modal = document.getElementById("code-modal");
+        const form = document.getElementById("code-form");
+        const input = document.getElementById("code-input");
+        const erreur = document.getElementById("code-erreur");
+        const titre = document.getElementById("code-titre");
+        const annuler = document.getElementById("code-annuler");
+        const persos = document.querySelectorAll(".audio a[data-code]");
+
+        let cible = null;
+
+        function estDebloque(id) {
+            return sessionStorage.getItem("debloque-" + id) === "1";
+        }
+
+        // Clic sur un perso : accès direct s'il est déjà débloqué, sinon demande du code
+        persos.forEach((perso) => {
+            perso.addEventListener("click", (e) => {
+                if (estDebloque(perso.dataset.id)) return;   // le lien fonctionne normalement
+
+                e.preventDefault();
+                cible = perso;
+                titre.textContent = "Code d'accès : " + perso.dataset.nom;
+                erreur.textContent = "";
+                input.value = "";
+                modal.showModal();
+                input.focus();
+            });
+        });
+
+        // Ne garde que les chiffres
+        input.addEventListener("input", () => {
+            input.value = input.value.replace(/\D/g, "");
+        });
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            if (!cible) return;
+
+            if (input.value === cible.dataset.code) {
+                sessionStorage.setItem("debloque-" + cible.dataset.id, "1");
+                location.href = cible.getAttribute("href");
+            } else {
+                erreur.textContent = "Code incorrect.";
+                input.value = "";
+                input.classList.remove("secoue");
+                void input.offsetWidth;     // relance l'animation
+                input.classList.add("secoue");
+                input.focus();
+            }
+        });
+
+        annuler.addEventListener("click", () => modal.close());
+    </script>
 </body>
 </html>
