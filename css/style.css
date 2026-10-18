@@ -23,6 +23,8 @@ body {
 
     position: relative;
     isolation: isolate;
+
+    overflow-wrap: break-word;
 }
 
 body > img {
@@ -55,7 +57,7 @@ h1 {
 
 .audio {
     display: grid;
-    grid-template-columns: 200px auto;
+    grid-template-columns: 200px minmax(0, 1fr);
     justify-content: space-between;
     align-items: center;
     gap: 33px 20px;
@@ -119,6 +121,102 @@ h1 {
     transform: scale(0.95);
 }
 
+/* ---------- Code d'accès (fenêtre par perso) ---------- */
+
+.code-modal {
+    box-sizing: border-box;
+    width: min(90vw, 340px);
+    padding: 24px;
+
+    font-family: inherit;
+    color: #1a1a2e;
+    text-align: center;
+
+    border: 3px solid #1a1a2e;
+    border-radius: 8px;
+    background-color: lightblue;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.code-modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+.code {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.code label {
+    font-size: 20px;
+}
+
+.code input {
+    box-sizing: border-box;
+    width: 170px;
+    padding: 10px 10px 10px 22px;   /* 22px à gauche compense l'espacement des chiffres */
+
+    font-family: inherit;
+    font-size: 28px;                /* 16px minimum : évite le zoom auto sur iPhone */
+    letter-spacing: 12px;
+    text-align: center;
+    color: #1a1a2e;
+
+    border: 3px solid #1a1a2e;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.code input:focus {
+    outline: 2px solid white;
+    outline-offset: 3px;
+}
+
+.code-boutons {
+    display: flex;
+    gap: 12px;
+}
+
+.code button {
+    padding: 8px 20px;
+
+    font-family: inherit;
+    font-size: 18px;
+    color: #1a1a2e;
+    cursor: pointer;
+
+    border: 2px solid #1a1a2e;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.4);
+
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.code button:hover {
+    background-color: #1a1a2e;
+    color: white;
+}
+
+.code-erreur {
+    min-height: 1.4em;              /* réserve la place pour éviter que la fenêtre saute */
+    margin: 0;
+    color: #8b0000;
+}
+
+.secoue {
+    animation: secoue 0.35s;
+}
+
+@keyframes secoue {
+    0%, 100% { transform: translateX(0); }
+    20%      { transform: translateX(-8px); }
+    40%      { transform: translateX(8px); }
+    60%      { transform: translateX(-6px); }
+    80%      { transform: translateX(6px); }
+}
+
 /* ---------- Page type : image audio + play + pistes ---------- */
 
 .lecteur {
@@ -128,11 +226,12 @@ h1 {
     justify-content: center;
     gap: 20px;
 
-    margin-bottom: 30px;       /* espace entre le lecteur et les pistes (avant : 60px) */
+    margin-bottom: 30px;
 }
 
 .lecteur-image {
     width: 150px;
+    max-width: 100%;
     height: auto;
     display: block;
 }
@@ -174,6 +273,8 @@ h1 {
 }
 
 .piste {
+    box-sizing: border-box;
+    max-width: 100%;
     padding: 4px 8px;
 
     border: 0;
@@ -183,6 +284,7 @@ h1 {
     line-height: 1.4;
     color: #1a1a2e;
     cursor: pointer;
+    overflow-wrap: anywhere;
 
     transition: color 0.15s, transform 0.15s;
 }
@@ -201,10 +303,46 @@ h1 {
 .cas-image {
     display: block;
     width: 200px;
+    max-width: 100%;
     height: auto;
     margin: 60px auto 0;
 
     border: 3px solid #1a1a2e;
     border-radius: 6px;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 600px) {
+    body {
+        width: 92%;
+        padding: 40px 16px 24px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    .audio {
+        grid-template-columns: 110px minmax(0, 1fr);
+        gap: 24px 14px;
+    }
+
+    .audio a {
+        width: 100%;
+    }
+
+    .audio span {
+        font-size: 15px;
+        overflow-wrap: anywhere;
+    }
+
+    .piste {
+        font-size: 17px;
+    }
+
+    .piste:hover {
+        transform: none;
+    }
 }
