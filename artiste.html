@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artiste</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+    <h1>../Central/Dossier/CAS:042/ARTISTE</h1>
+
+    <img src="./images/logo.png" alt="">
+
+    <a class="close" href="./index.html">
+        <img src="./images/cross.png" alt="Retour à l'index">
+    </a>
+
+    <div class="lecteur">
+        <img class="lecteur-image" src="./images/audio.png" alt="">
+        <button class="play" id="play" type="button" aria-label="Écouter l'intro" data-src="./audio/artiste/intro-artiste.mp3">
+            <img src="./images/play.png" alt="">
+        </button>
+    </div>
+
+    <div class="pistes">
+        <button type="button" class="piste" data-src="./audio/artiste/reponse-1-artiste.mp3">Où étais-tu hier soir entre 22 h et minuit ?</button>
+        <button type="button" class="piste" data-src="./audio/artiste/reponse-2-artiste.mp3">Tu dis qu'on t'a volé de la peinture… Qu'est-ce qui a disparu exactement ?</button>
+        <button type="button" class="piste" data-src="./audio/artiste/reponse-3-artiste.mp3">Est-ce que tu soupçonnes quelqu'un sur le campus pour ce vol ?</button>
+    </div>
+
+    <img class="cas-image" src="./images/artiste.png" alt="L'Arrogant">
+
+    <audio id="lecteur-audio"></audio>
+
+    <script>
+        const audio = document.getElementById("lecteur-audio");
+        const playBtn = document.getElementById("play");
+        const pistes = document.querySelectorAll(".piste");
+
+        // Charge un fichier et le lance depuis le début
+        function jouer(src) {
+            audio.src = src;
+            audio.currentTime = 0;
+            audio.play();
+        }
+
+        // Bouton play : joue uniquement l'intro
+        playBtn.addEventListener("click", () => {
+            pistes.forEach((p) => p.classList.remove("active"));
+            jouer(playBtn.dataset.src);
+        });
+
+        // Clic sur une question : joue la réponse correspondante
+        pistes.forEach((piste) => {
+            piste.addEventListener("click", () => {
+                pistes.forEach((p) => p.classList.remove("active"));
+                piste.classList.add("active");
+                jouer(piste.dataset.src);
+            });
+        });
+    </script>
+</body>
+</html>
